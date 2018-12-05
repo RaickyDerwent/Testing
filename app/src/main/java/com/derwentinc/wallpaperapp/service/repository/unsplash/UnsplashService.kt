@@ -1,5 +1,8 @@
-package com.derwentinc.wallpaperapp
+package com.derwentinc.wallpaperapp.service.repository.unsplash
 
+import com.derwentinc.wallpaperapp.model.Photo
+import com.derwentinc.wallpaperapp.service.model.unsplash.UnsplashPhotoResult
+import com.derwentinc.wallpaperapp.view.callback.ResultCallback
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -42,7 +45,12 @@ class UnsplashService {
                     }
 
                     override fun onNext(t: List<UnsplashPhotoResult>) {
-                        val collect = t.stream().map { it -> PhotoObj(it.description, it.urls.regular) }
+                        val collect = t.stream().map { it ->
+                            Photo(
+                                it.description,
+                                it.urls.regular
+                            )
+                        }
                             .collect(Collectors.toList())
                         resultCallback?.onResult(collect)
                     }
@@ -53,9 +61,4 @@ class UnsplashService {
                 })
         }
     }
-
-    interface ResultCallback {
-        fun onResult(result: List<PhotoObj>)
-    }
-
 }

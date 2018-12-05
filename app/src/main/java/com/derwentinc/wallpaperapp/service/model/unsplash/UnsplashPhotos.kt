@@ -1,4 +1,4 @@
-package com.derwentinc.wallpaperapp
+package com.derwentinc.wallpaperapp.service.model.unsplash
 
 data class UnsplashPhotos(
     val results: List<UnsplashPhotoResult>,

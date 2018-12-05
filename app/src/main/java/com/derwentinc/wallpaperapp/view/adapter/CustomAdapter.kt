@@ -1,4 +1,4 @@
-package com.derwentinc.wallpaperapp
+package com.derwentinc.wallpaperapp.view.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,9 +10,11 @@ import android.view.WindowManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.derwentinc.wallpaperapp.CustomAdapter.CustomViewHolder
+import com.derwentinc.wallpaperapp.R
+import com.derwentinc.wallpaperapp.model.Photo
+import com.derwentinc.wallpaperapp.view.adapter.CustomAdapter.CustomViewHolder
 
-class CustomAdapter(private val context: Context, private var photoList: ArrayList<PhotoObj>) :
+class CustomAdapter(private val context: Context, private var photoList: ArrayList<Photo>) :
     RecyclerView.Adapter<CustomViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -48,7 +50,7 @@ class CustomAdapter(private val context: Context, private var photoList: ArrayLi
         internal val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
 
-    fun update(photoList: List<PhotoObj>) {
+    fun update(photoList: List<Photo>) {
         this.photoList.clear()
         this.photoList.addAll(photoList)
 

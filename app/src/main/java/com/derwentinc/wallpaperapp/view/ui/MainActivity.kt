@@ -1,13 +1,18 @@
-package com.derwentinc.wallpaperapp
+package com.derwentinc.wallpaperapp.view.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.derwentinc.wallpaperapp.R
+import com.derwentinc.wallpaperapp.model.Photo
+import com.derwentinc.wallpaperapp.service.repository.unsplash.UnsplashService
+import com.derwentinc.wallpaperapp.view.adapter.CustomAdapter
+import com.derwentinc.wallpaperapp.view.callback.ResultCallback
 
-class MainActivity : AppCompatActivity(), UnsplashService.ResultCallback {
-    override fun onResult(result: List<PhotoObj>) {
+class MainActivity : AppCompatActivity(), ResultCallback {
+    override fun onResult(result: List<Photo>) {
         adapter.update(result)
     }
 
