@@ -1,13 +1,13 @@
 package com.derwentinc.wallpaperapp.view.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.derwentinc.wallpaperapp.R
