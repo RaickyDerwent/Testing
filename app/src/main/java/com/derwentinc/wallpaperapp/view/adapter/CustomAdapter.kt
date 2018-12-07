@@ -14,8 +14,24 @@ import com.derwentinc.wallpaperapp.R
 import com.derwentinc.wallpaperapp.model.Photo
 import com.derwentinc.wallpaperapp.view.adapter.CustomAdapter.CustomViewHolder
 
-class CustomAdapter(private val context: Context, private var photoList: ArrayList<Photo>) :
-    RecyclerView.Adapter<CustomViewHolder>() {
+fun getScreenWidth(context: Context): Int {
+    val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val metrics = DisplayMetrics()
+    wm.defaultDisplay.getMetrics(metrics)
+    return metrics.widthPixels
+}
+
+fun getScreenHeight(context: Context): Int {
+    val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val metrics = DisplayMetrics()
+    wm.defaultDisplay.getMetrics(metrics)
+    return metrics.heightPixels
+}
+
+class CustomAdapter(private val context: Context, private var photoList: ArrayList<Photo>) : RecyclerView.Adapter<CustomViewHolder>() {
+    private val screenWidth = getScreenWidth(context)
+    private val screenHeight = getScreenHeight(context)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
     }
@@ -26,24 +42,10 @@ class CustomAdapter(private val context: Context, private var photoList: ArrayLi
 
     override fun onBindViewHolder(viewHolder: CustomViewHolder, position: Int) {
         Glide.with(context)
-            .applyDefaultRequestOptions(RequestOptions().fitCenter().override(getScreenWidth(), getScreenHeight()))
+            .applyDefaultRequestOptions(RequestOptions().fitCenter().override(screenWidth, screenHeight))
             .asBitmap()
-            .load(photoList.get(position).url)
+            .load(photoList[position].url)
             .into(viewHolder.imageView)
-    }
-
-    fun getScreenWidth(): Int {
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val metrics = DisplayMetrics()
-        wm.defaultDisplay.getMetrics(metrics)
-        return metrics.widthPixels
-    }
-
-    fun getScreenHeight(): Int {
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val metrics = DisplayMetrics()
-        wm.defaultDisplay.getMetrics(metrics)
-        return metrics.heightPixels
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
