@@ -28,15 +28,6 @@ interface UnsplashRestClient {
         }
     }
 
-
-/*
-    @GET("/search/collections/")
-    fun getCollections(
-        @Header("Authorization") authHeader: String = "Client-ID 48d2f500c13f99e57baefe017552e1b41f9b548efd225b4e5e58759465961e63",
-        @Query("query") searchTerm: String
-    ): Observable<UnsplashCollection>
-*/
-
     @GET("/search/photos/")
     fun getPhotos(
         @Header("Authorization") authHeader: String = "Client-ID 48d2f500c13f99e57baefe017552e1b41f9b548efd225b4e5e58759465961e63",
