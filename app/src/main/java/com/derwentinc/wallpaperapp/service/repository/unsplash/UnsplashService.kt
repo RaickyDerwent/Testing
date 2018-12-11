@@ -1,6 +1,6 @@
 package com.derwentinc.wallpaperapp.service.repository.unsplash
 
-import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import com.derwentinc.wallpaperapp.model.Photo
 import com.derwentinc.wallpaperapp.service.model.unsplash.UnsplashPhotoResult
 import io.reactivex.Observer
@@ -12,15 +12,24 @@ import java.util.stream.Collectors
 class UnsplashService {
 
     companion object {
+        private lateinit var unsplashRestClient: UnsplashRestClient
+        private var callback: ResultCallback? = null
 
-        private val unsplashRestClient by lazy {
-            UnsplashRestClient.create()
+        fun registerCallback(resultCallback: ResultCallback) {
+            callback = resultCallback
         }
 
-        fun getPhotos(searchTerm: String): MutableLiveData<MutableList<Photo>> {
-            val photoList = MutableLiveData<MutableList<Photo>>()
+        fun unregisterCallback() {
+            callback = null
+        }
+
+        fun create(context: Context) {
+            unsplashRestClient = UnsplashRestClient.create(context)
+        }
+
+        fun getPhotos(searchTerm: String, pageNumber: Int = 1) {
             lateinit var disposable: Disposable
-            unsplashRestClient.getPhotos(searchTerm = searchTerm)
+            unsplashRestClient.getPhotos(searchTerm = searchTerm, pageNumber = pageNumber)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.computation())
                 .map { it -> it.results }
@@ -35,21 +44,24 @@ class UnsplashService {
                     }
 
                     override fun onNext(t: List<UnsplashPhotoResult>) {
-                        photoList.value = t.stream()
+                        callback?.onResult(t.stream()
                             .map { it ->
                                 Photo(
                                     it.description,
                                     it.urls.regular
                                 )
                             }
-                            .collect(Collectors.toList())
+                            .collect(Collectors.toList()))
                     }
 
                     override fun onError(e: Throwable) {
                     }
 
                 })
-            return photoList
         }
     }
+}
+
+interface ResultCallback {
+    fun onResult(photoList: List<Photo>)
 }

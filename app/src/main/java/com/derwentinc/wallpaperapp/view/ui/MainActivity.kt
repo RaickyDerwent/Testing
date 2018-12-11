@@ -3,37 +3,37 @@ package com.derwentinc.wallpaperapp.view.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.derwentinc.wallpaperapp.R
-import com.derwentinc.wallpaperapp.view.adapter.CustomAdapter
-import com.derwentinc.wallpaperapp.viewmodel.PhotoListViewModel
+import com.derwentinc.wallpaperapp.repositories.PhotoRepositoryImpl
+import com.derwentinc.wallpaperapp.view.adapter.PhotoAdapter
+import com.derwentinc.wallpaperapp.viewmodel.datasource.PhotoDataSourceFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var adapter: CustomAdapter
+    private lateinit var photoAdapter: PhotoAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var photoListViewModel: PhotoListViewModel
+    private lateinit var photoRepository: PhotoRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = CustomAdapter(applicationContext, ArrayList())
+        photoRepository = PhotoRepositoryImpl(PhotoDataSourceFactory())
 
-        recyclerView = findViewById(R.id.recycler_view)
-        val mLayoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.adapter = adapter
+        photoAdapter = PhotoAdapter(applicationContext)
 
-        photoListViewModel = ViewModelProviders.of(this).get(PhotoListViewModel::class.java)
+        recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            itemAnimator = DefaultItemAnimator()
+            adapter = photoAdapter
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        photoListViewModel.getPhotoList("Japan").observe(this, Observer { adapter.update(it) })
+        photoRepository.getPhotos().observe(this, Observer { it -> photoAdapter.submitList(it) })
     }
 }
