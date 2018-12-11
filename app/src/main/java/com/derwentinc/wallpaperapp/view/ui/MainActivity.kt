@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.derwentinc.wallpaperapp.R
 import com.derwentinc.wallpaperapp.repositories.PhotoRepositoryImpl
 import com.derwentinc.wallpaperapp.view.adapter.PhotoAdapter
-import com.derwentinc.wallpaperapp.viewmodel.datasource.PhotoDataSourceFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        photoRepository = PhotoRepositoryImpl(PhotoDataSourceFactory())
+        photoRepository = PhotoRepositoryImpl("Japan")
 
         photoAdapter = PhotoAdapter(applicationContext)
 
