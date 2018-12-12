@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/photoListFragment">
+
+    <fragment
+        android:id="@+id/photoListFragment"
+        android:name="com.derwentinc.wallpaperapp.view.fragment.PhotoListFragment"
+        android:label="photolist"
+        tools:layout="@layout/photolist_fragment">
+        <action
+            android:id="@+id/action_photoListFragment_to_photoViewFragment2"
+            app:destination="@id/photoViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoViewFragment"
+        android:name="com.derwentinc.wallpaperapp.view.fragment.PhotoViewFragment"
+        android:label="fragment_photo_view"
+        tools:layout="@layout/fragment_photo_view" />
+</navigation>
