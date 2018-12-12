@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.derwentinc.wallpaperapp.R
-import com.derwentinc.wallpaperapp.repositories.PhotoRepositoryImpl
 import com.derwentinc.wallpaperapp.view.adapter.PhotoAdapter
+import com.derwentinc.wallpaperapp.viewmodel.PhotoRepositoryImpl
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,10 +29,7 @@ class MainActivity : AppCompatActivity() {
             itemAnimator = DefaultItemAnimator()
             adapter = photoAdapter
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         photoRepository.getPhotos().observe(this, Observer { it -> photoAdapter.submitList(it) })
     }
 }

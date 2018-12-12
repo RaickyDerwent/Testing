@@ -19,10 +19,6 @@ class UnsplashService {
             callback = resultCallback
         }
 
-        fun unregisterCallback() {
-            callback = null
-        }
-
         fun create(context: Context) {
             unsplashRestClient = UnsplashRestClient.create(context)
         }

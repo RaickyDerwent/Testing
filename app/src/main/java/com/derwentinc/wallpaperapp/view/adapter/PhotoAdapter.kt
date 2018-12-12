@@ -56,5 +56,5 @@ class PhotoAdapter(val context: Context) : PagedListAdapter<Photo, PhotoViewHold
 }
 
 class PhotoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val imageView = view.findViewById<ImageView>(R.id.imageView)
+    val imageView = view.findViewById<ImageView>(R.id.imageView)!!
 }
