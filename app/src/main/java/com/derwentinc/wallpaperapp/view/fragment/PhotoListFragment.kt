@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.derwentinc.wallpaperapp.R
-import com.derwentinc.wallpaperapp.model.Photo
 import com.derwentinc.wallpaperapp.view.adapter.PhotoAdapter
 import com.derwentinc.wallpaperapp.viewmodel.PhotoRepositoryImpl
 
@@ -30,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class PhotoListFragment : Fragment(), PhotoClickListener {
+class PhotoListFragment : Fragment() {
 
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var recyclerView: RecyclerView
@@ -43,7 +41,7 @@ class PhotoListFragment : Fragment(), PhotoClickListener {
         photoRepository = PhotoRepositoryImpl("Japan")
 
         val applicationContext = view.context.applicationContext
-        photoAdapter = PhotoAdapter(applicationContext, this)
+        photoAdapter = PhotoAdapter(applicationContext)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(applicationContext)
@@ -58,16 +56,4 @@ class PhotoListFragment : Fragment(), PhotoClickListener {
         super.onViewCreated(view, savedInstanceState)
         photoRepository.getPhotos().observe(this, Observer { it -> photoAdapter.submitList(it) })
     }
-
-    override fun onPhotoClicked(photo: Photo?) {
-        val bundle = Bundle()
-        bundle.putParcelable("photo", photo)
-        view?.findNavController()?.navigate(R.id.photoViewFragment, bundle)
-    }
-
-}
-
-
-interface PhotoClickListener {
-    fun onPhotoClicked(photo: Photo?)
 }
