@@ -29,7 +29,7 @@ fun getScreenHeight(context: Context): Int {
     return metrics.heightPixels
 }
 
-class PhotoAdapter(val context: Context) : PagedListAdapter<Photo, PhotoViewHolder>(PhotoDiffUtil) {
+class PhotoAdapter(val context: Context, val photoClickListener: PhotoClickListener) : PagedListAdapter<Photo, PhotoViewHolder>(PhotoDiffUtil) {
     private val screenWidth: Int = getScreenWidth(context)
     private val screenHeight: Int = getScreenHeight(context)
 
@@ -47,6 +47,7 @@ class PhotoAdapter(val context: Context) : PagedListAdapter<Photo, PhotoViewHold
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+        holder.imageView.setOnClickListener { photoClickListener.onPhotoClick(getItem(position)) }
         Glide.with(context)
             .applyDefaultRequestOptions(RequestOptions().fitCenter().override(screenWidth, screenHeight))
             .asBitmap()
@@ -57,4 +58,8 @@ class PhotoAdapter(val context: Context) : PagedListAdapter<Photo, PhotoViewHold
 
 class PhotoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val imageView = view.findViewById<ImageView>(R.id.imageView)!!
+}
+
+interface PhotoClickListener {
+    fun onPhotoClick(photo: Photo?)
 }
