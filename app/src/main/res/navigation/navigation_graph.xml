@@ -9,7 +9,7 @@
         android:id="@+id/photoListFragment"
         android:name="com.derwentinc.wallpaperapp.view.fragment.PhotoListFragment"
         android:label="photolist"
-        tools:layout="@layout/photolist_fragment">
+        tools:layout="@layout/fragment_photo_list">
         <action
             android:id="@+id/action_photoListFragment_to_photoViewFragment2"
             app:destination="@id/photoViewFragment" />

@@ -15,6 +15,7 @@ import com.derwentinc.wallpaperapp.R
 import com.derwentinc.wallpaperapp.model.Photo
 import com.derwentinc.wallpaperapp.view.adapter.PhotoAdapter
 import com.derwentinc.wallpaperapp.viewmodel.PhotoViewModel
+import com.derwentinc.wallpaperapp.viewmodel.PhotoViewModelFactory
 
 class PhotoListFragment : Fragment(), PhotoClickListener {
 
@@ -23,12 +24,12 @@ class PhotoListFragment : Fragment(), PhotoClickListener {
     private lateinit var photoViewModel: PhotoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val createdView = inflater.inflate(R.layout.photolist_fragment, container, false)
+        val createdView = inflater.inflate(R.layout.fragment_photo_list, container, false)
 
         val applicationContext = createdView!!.context.applicationContext
         photoAdapter = PhotoAdapter(applicationContext, this)
 
-        photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel::class.java)
+        photoViewModel = ViewModelProviders.of(this, PhotoViewModelFactory()).get(PhotoViewModel::class.java)
 
         recyclerView = createdView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(applicationContext)

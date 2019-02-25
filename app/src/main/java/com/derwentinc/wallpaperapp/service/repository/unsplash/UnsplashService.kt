@@ -28,7 +28,7 @@ class UnsplashService {
             unsplashRestClient.getPhotos(searchTerm = searchTerm, pageNumber = pageNumber)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.computation())
-                .map { it -> it.results }
+                .map { it.results }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<List<UnsplashPhotoResult>> {
                     override fun onComplete() {
@@ -41,7 +41,7 @@ class UnsplashService {
 
                     override fun onNext(t: List<UnsplashPhotoResult>) {
                         callback?.onResult(t.stream()
-                            .map { it ->
+                            .map {
                                 Photo(
                                     it.description,
                                     it.urls.regular
