@@ -13,10 +13,19 @@
         <action
             android:id="@+id/action_photoListFragment_to_photoViewFragment2"
             app:destination="@id/photoViewFragment" />
+        <action
+            android:id="@+id/searchAction"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/photoListFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoViewFragment"
         android:name="com.derwentinc.wallpaperapp.view.fragment.PhotoViewFragment"
         android:label="fragment_photo_view"
         tools:layout="@layout/fragment_photo_view" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.derwentinc.wallpaperapp.view.fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

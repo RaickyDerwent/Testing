@@ -15,6 +15,11 @@ import com.github.chrisbanes.photoview.PhotoView
 
 class PhotoViewFragment : Fragment() {
     private lateinit var imageView: PhotoView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_photo_view, container, false)
