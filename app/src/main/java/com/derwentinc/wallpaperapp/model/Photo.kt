@@ -4,27 +4,28 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Photo(val name: String?, val url: String) : Parcelable {
-    constructor(source: Parcel) : this(source.readString(), url = source.readString())
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        url = parcel.readString()!!
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(url)
+    }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeString(name)
-        dest?.writeString(url)
-    }
+    companion object CREATOR : Parcelable.Creator<Photo> {
+        override fun createFromParcel(parcel: Parcel): Photo {
+            return Photo(parcel)
+        }
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Photo> = object : Parcelable.Creator<Photo> {
-            override fun createFromParcel(source: Parcel): Photo {
-                return Photo(source)
-            }
-
-            override fun newArray(size: Int): Array<Photo?> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<Photo?> {
+            return arrayOfNulls(size)
         }
     }
 }

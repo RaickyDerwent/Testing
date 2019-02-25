@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.derwentinc.wallpaperapp.R
 import com.derwentinc.wallpaperapp.model.Photo
-import com.derwentinc.wallpaperapp.view.fragment.PhotoClickListener
 
 fun getScreenWidth(context: Context): Int {
     val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -48,9 +47,7 @@ class PhotoAdapter(val context: Context, val photoClickListener: PhotoClickListe
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.imageView.setOnClickListener {
-            photoClickListener.onPhotoClicked(getItem(position))
-        }
+        holder.imageView.setOnClickListener { photoClickListener.onPhotoClick(getItem(position)) }
         Glide.with(context)
             .applyDefaultRequestOptions(RequestOptions().fitCenter().override(screenWidth, screenHeight))
             .asBitmap()
@@ -60,5 +57,9 @@ class PhotoAdapter(val context: Context, val photoClickListener: PhotoClickListe
 }
 
 class PhotoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val imageView = view.findViewById<ImageView>(R.id.list_item_image)!!
+    val imageView = view.findViewById<ImageView>(R.id.imageView)!!
+}
+
+interface PhotoClickListener {
+    fun onPhotoClick(photo: Photo?)
 }
