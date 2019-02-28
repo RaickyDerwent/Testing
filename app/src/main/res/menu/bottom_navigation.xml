@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_collections"
+        android:enabled="true"
+        android:icon="@drawable/baseline_collections_white_18dp"
+        android:title="Collections"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_collections1"
+        android:enabled="true"
+        android:icon="@drawable/baseline_collections_white_18dp"
+        android:title="Collections"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_collections2"
+        android:enabled="true"
+        android:icon="@drawable/baseline_collections_white_18dp"
+        android:title="Collections"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_collections3"
+        android:enabled="true"
+        android:icon="@drawable/baseline_collections_white_18dp"
+        android:title="Collections"
+        app:showAsAction="ifRoom" />
+</menu>
